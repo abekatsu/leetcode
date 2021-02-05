@@ -105,6 +105,35 @@ public:
     return second;
   }
 
+  ListNode* swapPairs04(ListNode* head) {
+    // ListNode *first, *second, *third;
+    ListNode *tmp1, *tmp2;
+
+    if (head == nullptr || head->next == nullptr) {
+      // nothing to do
+      return head;
+    }
+    // printf("head: %p, head->next: %p, head->next->next: %p, tmp1: %p\n",
+    //       head, head->next, head->next->next, tmp1);
+
+    tmp1 = head;
+    tmp2 = head->next->next;
+
+    printf("head: %p, head->next: %p, head->next->next: %p, tmp1: %p, tmp2: %p\n",
+           head, head->next, head->next->next, tmp1, tmp2);
+
+    head = head->next;
+    head->next = tmp1;
+    head->next->next = tmp2;
+
+    printf("head: %p, head->next: %p, head->next->next: %p, tmp1: %p, tmp2: %p\n",
+           head, head->next, head->next->next, tmp1, tmp2);
+
+    head->next->next = swapPairs04(head->next->next);
+    // head->next->next = swapPairs04(head->next->next);
+    return head;
+  }
+
 };
 
 int main(int argc, char *argv[]) {
@@ -112,7 +141,7 @@ int main(int argc, char *argv[]) {
 
   Solution sol;
   std::cout << node.to_string() << std::endl;
-  ListNode *swappedNode = sol.swapPairs02(&node);
+  ListNode *swappedNode = sol.swapPairs04(&node);
   std::cout << swappedNode->to_string() << std::endl;
 
 }
