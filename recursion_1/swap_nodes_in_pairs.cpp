@@ -70,68 +70,19 @@ public:
     return head;
   }
 
-  ListNode* swapPairs02(ListNode* head) {
-    ListNode *tmp1, *tmp2;
-
-    if (head == nullptr || head->next == nullptr) {
-      // nothing to do
-      return head;
-    }
-    tmp1 = head;
-    tmp2 = head->next->next;
-
-    head = head->next;
-    head->next = tmp1;
-    head->next->next = swapPairs02(tmp2);
-    // head->next->next = swapPairs02(tmp1->next->next);
-
-    return head;
-  }
-
-  ListNode* swapPairs03(ListNode* head) {
-    ListNode *first, *second, *third;
-
-    if (head == nullptr || head->next == nullptr) {
-      // nothing to do
-      return head;
-    }
-
-    first = head;
-    second = head->next;
-    third = second->next;
-
-    second->next = first;
-    first->next = swapPairs03(third);
-    return second;
-  }
-
   ListNode* swapPairs04(ListNode* head) {
-    // ListNode *first, *second, *third;
-    ListNode *tmp1, *tmp2;
+    ListNode *next;
 
     if (head == nullptr || head->next == nullptr) {
       // nothing to do
       return head;
     }
-    // printf("head: %p, head->next: %p, head->next->next: %p, tmp1: %p\n",
-    //       head, head->next, head->next->next, tmp1);
 
-    tmp1 = head;
-    tmp2 = head->next->next;
+    next = head->next;
+    head->next = swapPairs04(next->next);
+    next->next = head;
 
-    printf("head: %p, head->next: %p, head->next->next: %p, tmp1: %p, tmp2: %p\n",
-           head, head->next, head->next->next, tmp1, tmp2);
-
-    head = head->next;
-    head->next = tmp1;
-    head->next->next = tmp2;
-
-    printf("head: %p, head->next: %p, head->next->next: %p, tmp1: %p, tmp2: %p\n",
-           head, head->next, head->next->next, tmp1, tmp2);
-
-    head->next->next = swapPairs04(head->next->next);
-    // head->next->next = swapPairs04(head->next->next);
-    return head;
+    return next;
   }
 
 };
